@@ -9,8 +9,7 @@ function fibonacciServer() {
     .then(response => response.json())  
     .then(data => {
         document.getElementById('result').innerText = data.result;
-
-    });
+     });
 }
 
 document.getElementById('btn').addEventListener('click',fibonacciServer);
