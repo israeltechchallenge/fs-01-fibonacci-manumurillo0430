@@ -8,3 +8,13 @@ input::-webkit-inner-spin-button,input[type=number] {
   -moz-appearance: textfield;
  
 }
+.c1 {
+    padding: 4px;
+    margin-left: 130px;
+    width: fit-content;
+    background: #F2DEDE;
+    border-radius: 4px;
+    color: #A94442;
+    font-size: 14px;
+    border: 1px solid #EBCCCC;
+}

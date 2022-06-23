@@ -12,21 +12,30 @@
         <title>Document</title>
 </head>
 <body class="d-flex flex-column">
-    <h1 class="display-3 m-5">Fibonacci Calculator</h1>
-    <div class="d-flex flex-row ml-5 align-items-center">
-        <div class="p-2 align-self-center">
-            <span>The Fibonacci Of</span>
-          </div>
-          <div class="p-2 align-self-center">
-            <input type="number" style="width: 90px;" class="form-control" id="number" placeholder="#">
-          </div>
-          <div class="p-2 align-self-center">
-            <button type="submit" class="btn btn-primary" id="btn">is</button>
-          </div>
-          <div class="p-2 align-self-center">
-            <span id="result"></span>
+    <h1 class="display-2 m-5">Fibonacci Calculator</h1>
+    <div class="flex-column">
+            <div class="d-flex flex-row ml-5 align-items-center">
+                <div class="p-2 align-self-center">
+                    <span>The Fibonacci Of</span>
+                </div>
+                <div class="p-2 align-self-center flex-column">
+                    <input type="number" style="width: 90px;" class="form-control" id="number" placeholder="#">
+                </div>
+                <div class="p-2 align-self-center flex-row">
+                    <button type="submit" class="btn btn-primary" id="btn">is</button>
+                    
+                </div>
+                <div id="spinner" class="spinner-border d-none" role="status">
+                    <span class="visually-hidden"></span>
+                </div>
+                <div class="p-2 align-self-center">
+                    <div class="text-decoration-underline d-none" id="result"></div>
+                </div>
+            </div>
+            <div id="larger-than" class="display-5 align-items-center d-none c1">
+                Can't be larger than 50
+            </div>
         </div>
-    </div>
 
     <script src="./script.js"></script>
 </body>
