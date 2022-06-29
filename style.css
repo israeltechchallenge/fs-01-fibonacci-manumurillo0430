@@ -6,11 +6,10 @@ input::-webkit-inner-spin-button,input[type=number] {
   -webkit-appearance: none;
   margin: 0;
   -moz-appearance: textfield;
- 
 }
 .c1 {
     padding: 4px;
-    margin-left: 130px;
+    margin-left: 121px;
     width: fit-content;
     background: #F2DEDE;
     border-radius: 4px;
