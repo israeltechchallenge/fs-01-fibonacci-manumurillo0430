@@ -63,7 +63,6 @@ function listOfCalculations(){
         let li = document.createElement("li");
         li.innerHTML = `<li class="mb-3 ml-2"><div class="border-bottom border-dark pb-3">The Fibonnaci Of <strong>${info.number}</strong> is <strong>${info.result}</strong>. Calculated at: ${new Date(info.createdDate)}</div></li>`;
         fibonacciList.appendChild(li);
-
     }
         
         spinnerResults.classList.add('d-none');

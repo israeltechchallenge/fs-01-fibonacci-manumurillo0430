@@ -7,6 +7,7 @@ input::-webkit-inner-spin-button,input[type=number] {
   margin: 0;
   -moz-appearance: textfield;
 }
+
 .c1 {
     padding: 4px;
     margin-left: 121px;
