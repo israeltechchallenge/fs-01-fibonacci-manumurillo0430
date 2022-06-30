@@ -7,10 +7,16 @@ input::-webkit-inner-spin-button,input[type=number] {
   margin: 0;
   -moz-appearance: textfield;
 }
-
+input[type=checkbox]{
+  width: 10px;
+  filter: opacity(0.5);
+}
+.s2{
+  font-size: 13px;
+}
 .c1 {
     padding: 4px;
-    margin-left: 121px;
+    margin-left: 28px;
     width: fit-content;
     background: #F2DEDE;
     border-radius: 4px;
