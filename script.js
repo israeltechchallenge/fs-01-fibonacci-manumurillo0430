@@ -2,6 +2,8 @@ let result = document.getElementById('result')
 let spinner = document.getElementById('spinner'); 
 let largerThan = document.getElementById('larger-than'); 
 let newItemList = document.getElementById('new-item-list');
+let select = document.getElementById('select');
+let sortBy = document.getElementById('sort-by');
 function fib(n, res = [0, 1, 1]) {
     if (res[n]) {
         return res[n];
@@ -23,35 +25,86 @@ function fibonacciLocal(){
     resultStylte();
     result.innerText = fib(userNum);
 }
-function fibonacciServer() {
+const fibonacciServer = async () => {
     let userNum = document.getElementById('number').value; 
     if (userNum > 50) {
         alert();
-     }  else {
-        resetStyle();
-        fetch(`http://localhost:5050/fibonacci/${userNum}`)
-        .then(response => {
-            if(!response.ok){
-                return response.text()
-                    .then(errorText => { throw new Error(errorText) })
-            }
-            return response.json()
-        })  
-        .then(data => {
-            resultStylte();
-            result.innerText = data.result;
-        })
-        .catch(error => {
-            if(error.message == "number can't be smaller than 1"){
-                alert()
-                largerThan.innerText = `Can't be smaller than 1`
-            } else 
-            errorStyle();
-            result.innerText = 'Server Error: ' + error.message;
-       
-        });
+    }  else { 
+        try {
+                resetStyle();
+                const res = await fetch(`http://localhost:5050/fibonacci/${userNum}`);
+                const data = await res.json();
+        result.innerText = data.result;
+        resultStylte();
+        listOfCalculations();
+        } 
+        catch (error) {
+             if( userNum < 0){
+                    alert()
+                    largerThan.innerText = `Can't be smaller than 1`
+                    } else
+                        errorStyle();
+                        result.innerText = 'Server Error: 42 is the meaning of life'
+                   
+                    }
     }
-    listOfCalculations();
+}
+const listOfCalculations = async() => {
+    let spinnerResults = document.getElementById('spinnerResults');
+    let fibonacciList = document.getElementById('fibonacci-list');
+    spinnerResults.classList.remove('d-none');
+    fibonacciList.innerText =''
+    const res = await fetch(`http://localhost:5050/getFibonacciResults`)
+    const data = await res.json();
+    let value = select.value;
+    fibonacciList.style.listStyleType = "none"; 
+    if (value == '0'){
+        value= 10;
+    for (let info of data.results.sort((a, b) => b["createdDate"] - a["createdDate"] ))
+     { 
+        let li = document.createElement("li");
+        li.innerHTML = `<li class="mb-3 ml-2"><div class="border-bottom border-dark pb-3">The Fibonnaci Of <strong>${info.number}</strong> is <strong>${info.result}</strong>. Calculated at: ${new Date(info.createdDate)}</div></li>`;
+        fibonacciList.appendChild(li);
+    }
+        spinnerResults.classList.add('d-none');
+    }  
+    if (value == '1'){  
+    for (let info of data.results.sort((a, b) => a["number"] - b["number"] ))
+     {
+        let li = document.createElement("li");
+        li.innerHTML = `<li class="mb-3 ml-2"><div class="border-bottom border-dark pb-3">The Fibonnaci Of <strong>${info.number}</strong> is <strong>${info.result}</strong>. Calculated at: ${new Date(info.createdDate)}</div></li>`;
+        fibonacciList.appendChild(li);
+    }
+        spinnerResults.classList.add('d-none');  
+    }
+    if (value == '2'){  
+    for (let info of data.results.sort((a, b) => b["number"] - a["number"] ))
+     {
+        let li = document.createElement("li");
+        li.innerHTML = `<li class="mb-3 ml-2"><div class="border-bottom border-dark pb-3">The Fibonnaci Of <strong>${info.number}</strong> is <strong>${info.result}</strong>. Calculated at: ${new Date(info.createdDate)}</div></li>`;
+        fibonacciList.appendChild(li);
+    }
+        spinnerResults.classList.add('d-none');  
+    }
+    if (value == '3'){
+    for (let info of data.results.sort((a, b) => a["createdDate"] - b["createdDate"] ))
+     {
+        let li = document.createElement("li");
+        li.innerHTML = `<li class="mb-3 ml-2"><div class="border-bottom border-dark pb-3">The Fibonnaci Of <strong>${info.number}</strong> is <strong>${info.result}</strong>. Calculated at: ${new Date(info.createdDate)}</div></li>`;
+        fibonacciList.appendChild(li);
+    }
+        spinnerResults.classList.add('d-none');  
+    }
+    if (value == '4'){ 
+    for (let info of data.results.sort((a, b) => b["createdDate"] - a["createdDate"] ))
+     {
+        let li = document.createElement("li");
+        li.innerHTML = `<li class="mb-3 ml-2"><div class="border-bottom border-dark pb-3">The Fibonnaci Of <strong>${info.number}</strong> is <strong>${info.result}</strong>. Calculated at: ${new Date(info.createdDate)}</div></li>`;
+        fibonacciList.appendChild(li);
+    }
+        spinnerResults.classList.add('d-none');  
+    }
+    
 }
 const errorStyle = () => {
     spinner.classList.add('d-none');
@@ -86,32 +139,19 @@ const resetStyle = () =>{
         document.getElementById('result').innerText = '';
 
 }
-function listOfCalculations(){
-    let spinnerResults = document.getElementById('spinnerResults')
-    let fibonacciList = document.getElementById('fibonacci-list')
-    spinnerResults.classList.remove('d-none');
-    fibonacciList.innerText =''
-    fetch(`http://localhost:5050/getFibonacciResults`)
-    .then(response => {
-    return response.json();
-    })
-    .then(data =>{   
-    fibonacciList.style.listStyleType = "none";  
-    for (let info of data.results.sort((a, b) => b["createdDate"] - a["createdDate"] ))
-     {
-        let li = document.createElement("li");
-        li.innerHTML = `<li class="mb-3 ml-2"><div class="border-bottom border-dark pb-3">The Fibonnaci Of <strong>${info.number}</strong> is <strong>${info.result}</strong>. Calculated at: ${new Date(info.createdDate)}</div></li>`;
-        fibonacciList.appendChild(li);
-    }
-        spinnerResults.classList.add('d-none');  
-    });  
-}
+
 const checkingCheckBox = () => {
     if(newItemList.checked)
         fibonacciServer();
     else 
        fibonacciLocal()
 } 
+
 document.getElementById('btn').addEventListener('click',checkingCheckBox);
-
-
+document.getElementById('select').addEventListener('change', () =>{
+    let value = select.value;
+    if (value == '0'){
+    sortBy.setAttribute(`disabled`)
+    }
+    listOfCalculations();
+})
